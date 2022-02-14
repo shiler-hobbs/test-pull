@@ -121,12 +121,12 @@ generate_stats(){
 run_scan(){
 # append to existing logfile
 if [[ $(/usr/bin/tail -n 1 "$audit_log" 2>/dev/null) = *"Remediation complete" ]]; then
- 	echo "$(date -u) Beginning 800-53r5_moderate baseline scan" >> "$audit_log"
+ 	echo "$(date -u)- Beginning 800-53r5_moderate baseline scan" >> "$audit_log"
 else
- 	echo "$(date -u) Beginning 800-53r5_moderate baseline scan" > "$audit_log"
+ 	echo "$(date -u)- Beginning 800-53r5_moderate baseline scan" > "$audit_log"
 fi
 
-#echo "$(date -u) Beginning 800-53r5_moderate baseline scan" >> "$audit_log"
+#echo "$(date -u)- Beginning 800-53r5_moderate baseline scan" >> "$audit_log"
 
 # run mcxrefresh
 /usr/bin/mcxrefresh -u $CURR_USER_UID
@@ -155,19 +155,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) auth_pam_login_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_pam_login_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_pam_login_smartcard_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_pam_login_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_pam_login_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_pam_login_smartcard_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_pam_login_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_pam_login_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_pam_login_smartcard_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_pam_login_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_pam_login_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_pam_login_smartcard_enforce -dict-add finding -bool NO
 fi
     
@@ -192,19 +192,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) auth_pam_su_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_pam_su_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_pam_su_smartcard_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_pam_su_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_pam_su_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_pam_su_smartcard_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_pam_su_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_pam_su_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_pam_su_smartcard_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_pam_su_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_pam_su_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_pam_su_smartcard_enforce -dict-add finding -bool NO
 fi
     
@@ -229,19 +229,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) auth_pam_sudo_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "auth_pam_sudo_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_pam_sudo_smartcard_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_pam_sudo_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "auth_pam_sudo_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_pam_sudo_smartcard_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_pam_sudo_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_pam_sudo_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_pam_sudo_smartcard_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_pam_sudo_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_pam_sudo_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_pam_sudo_smartcard_enforce -dict-add finding -bool NO
 fi
     
@@ -266,19 +266,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) auth_smartcard_allow passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_smartcard_allow passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_smartcard_allow -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_smartcard_allow failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_smartcard_allow failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_smartcard_allow -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_smartcard_allow has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_smartcard_allow has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_smartcard_allow -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_smartcard_allow does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_smartcard_allow does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_smartcard_allow -dict-add finding -bool NO
 fi
     
@@ -304,19 +304,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "2" ]]; then
-            echo "$(date -u) auth_smartcard_certificate_trust_enforce_moderate passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "auth_smartcard_certificate_trust_enforce_moderate passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_smartcard_certificate_trust_enforce_moderate -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_smartcard_certificate_trust_enforce_moderate failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "auth_smartcard_certificate_trust_enforce_moderate failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_smartcard_certificate_trust_enforce_moderate -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_smartcard_certificate_trust_enforce_moderate has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_smartcard_certificate_trust_enforce_moderate has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_smartcard_certificate_trust_enforce_moderate -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_smartcard_certificate_trust_enforce_moderate does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_smartcard_certificate_trust_enforce_moderate does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_smartcard_certificate_trust_enforce_moderate -dict-add finding -bool NO
 fi
     
@@ -342,19 +342,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) auth_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_smartcard_enforce passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_smartcard_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_smartcard_enforce failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_smartcard_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_smartcard_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_smartcard_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_smartcard_enforce -dict-add finding -bool NO
 fi
     
@@ -381,19 +381,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) auth_ssh_password_authentication_disable passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_ssh_password_authentication_disable passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_ssh_password_authentication_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) auth_ssh_password_authentication_disable failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "auth_ssh_password_authentication_disable failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" auth_ssh_password_authentication_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) auth_ssh_password_authentication_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "auth_ssh_password_authentication_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" auth_ssh_password_authentication_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) auth_ssh_password_authentication_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "auth_ssh_password_authentication_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" auth_ssh_password_authentication_disable -dict-add finding -bool NO
 fi
     
@@ -419,19 +419,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_acls_files_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_acls_files_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_acls_files_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_acls_files_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_acls_files_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_acls_files_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_acls_files_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_acls_files_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_acls_files_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_acls_files_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_acls_files_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_acls_files_configure -dict-add finding -bool NO
 fi
     
@@ -456,19 +456,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_acls_folders_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_acls_folders_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_acls_folders_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_acls_folders_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_acls_folders_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_acls_folders_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_acls_folders_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_acls_folders_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_acls_folders_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_acls_folders_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_acls_folders_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_acls_folders_configure -dict-add finding -bool NO
 fi
     
@@ -498,19 +498,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_auditd_enabled passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_auditd_enabled passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_auditd_enabled -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_auditd_enabled failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_auditd_enabled failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_auditd_enabled -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_auditd_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_auditd_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_auditd_enabled -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_auditd_enabled does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_auditd_enabled does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_auditd_enabled -dict-add finding -bool NO
 fi
     
@@ -535,19 +535,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_failure_halt passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_failure_halt passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_failure_halt -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_failure_halt failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_failure_halt failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_failure_halt -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_failure_halt has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_failure_halt has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_failure_halt -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_failure_halt does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_failure_halt does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_failure_halt -dict-add finding -bool NO
 fi
     
@@ -572,19 +572,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_files_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_files_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_files_group_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_files_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_files_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_files_group_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_files_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_files_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_files_group_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_files_group_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_files_group_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_files_group_configure -dict-add finding -bool NO
 fi
     
@@ -609,19 +609,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_files_mode_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_files_mode_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_files_mode_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_files_mode_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_files_mode_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_files_mode_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_files_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_files_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_files_mode_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_files_mode_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_files_mode_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_files_mode_configure -dict-add finding -bool NO
 fi
     
@@ -646,19 +646,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_files_owner_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_files_owner_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_files_owner_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_files_owner_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_files_owner_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_files_owner_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_files_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_files_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_files_owner_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_files_owner_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_files_owner_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_files_owner_configure -dict-add finding -bool NO
 fi
     
@@ -687,19 +687,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_aa_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_aa_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_aa_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_aa_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_aa_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_aa_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_aa_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_aa_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_aa_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_aa_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_aa_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_aa_configure -dict-add finding -bool NO
 fi
     
@@ -729,19 +729,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_ad_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_ad_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_ad_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_ad_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_ad_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_ad_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_ad_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_ad_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_ad_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_ad_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_ad_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_ad_configure -dict-add finding -bool NO
 fi
     
@@ -769,19 +769,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_ex_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_ex_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_ex_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_ex_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_ex_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_ex_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_ex_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_ex_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_ex_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_ex_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_ex_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_ex_configure -dict-add finding -bool NO
 fi
     
@@ -811,19 +811,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_fd_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fd_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fd_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_fd_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fd_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fd_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_fd_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_fd_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_fd_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_fd_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_fd_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_fd_configure -dict-add finding -bool NO
 fi
     
@@ -853,19 +853,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_fm_failed_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fm_failed_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fm_failed_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_fm_failed_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fm_failed_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fm_failed_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_fm_failed_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_fm_failed_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_fm_failed_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_fm_failed_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_fm_failed_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_fm_failed_configure -dict-add finding -bool NO
 fi
     
@@ -895,19 +895,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_fr_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fr_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fr_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_fr_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fr_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fr_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_fr_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_fr_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_fr_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_fr_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_fr_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_fr_configure -dict-add finding -bool NO
 fi
     
@@ -937,19 +937,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_fw_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fw_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fw_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_fw_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_fw_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_fw_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_fw_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_fw_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_fw_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_fw_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_fw_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_fw_configure -dict-add finding -bool NO
 fi
     
@@ -978,19 +978,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_flags_lo_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_lo_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_lo_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_flags_lo_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_flags_lo_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_flags_lo_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_flags_lo_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_flags_lo_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_flags_lo_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_flags_lo_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_flags_lo_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_flags_lo_configure -dict-add finding -bool NO
 fi
     
@@ -1015,19 +1015,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_folder_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_folder_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_folder_group_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_folder_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_folder_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_folder_group_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_folder_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_folder_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_folder_group_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_folder_group_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_folder_group_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_folder_group_configure -dict-add finding -bool NO
 fi
     
@@ -1052,19 +1052,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) audit_folder_owner_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_folder_owner_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_folder_owner_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_folder_owner_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "audit_folder_owner_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_folder_owner_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_folder_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_folder_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_folder_owner_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_folder_owner_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_folder_owner_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_folder_owner_configure -dict-add finding -bool NO
 fi
     
@@ -1089,19 +1089,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "700" ]]; then
-            echo "$(date -u) audit_folders_mode_configure passed (Result: $result_value, Expected: "{'integer': 700}")" | tee -a "$audit_log"
+            echo "audit_folders_mode_configure passed (Result: $result_value, Expected: "{'integer': 700}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_folders_mode_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_folders_mode_configure failed (Result: $result_value, Expected: "{'integer': 700}")" | tee -a "$audit_log"
+            echo "audit_folders_mode_configure failed (Result: $result_value, Expected: "{'integer': 700}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_folders_mode_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_folders_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_folders_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_folders_mode_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_folders_mode_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_folders_mode_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_folders_mode_configure -dict-add finding -bool NO
 fi
     
@@ -1127,19 +1127,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "365d" ]]; then
-            echo "$(date -u) audit_retention_configure passed (Result: $result_value, Expected: "{'string': '365d'}")" | tee -a "$audit_log"
+            echo "audit_retention_configure passed (Result: $result_value, Expected: "{'string': '365d'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_retention_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_retention_configure failed (Result: $result_value, Expected: "{'string': '365d'}")" | tee -a "$audit_log"
+            echo "audit_retention_configure failed (Result: $result_value, Expected: "{'string': '365d'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_retention_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_retention_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_retention_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_retention_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_retention_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_retention_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_retention_configure -dict-add finding -bool NO
 fi
     
@@ -1164,19 +1164,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) audit_settings_failure_notify passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_settings_failure_notify passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_settings_failure_notify -dict-add finding -bool NO
         else
-            echo "$(date -u) audit_settings_failure_notify failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "audit_settings_failure_notify failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" audit_settings_failure_notify -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) audit_settings_failure_notify has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "audit_settings_failure_notify has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" audit_settings_failure_notify -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) audit_settings_failure_notify does not apply to this architechture" | tee -a "$audit_log"
+    echo "audit_settings_failure_notify does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" audit_settings_failure_notify -dict-add finding -bool NO
 fi
     
@@ -1203,19 +1203,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_airdrop_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_airdrop_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_airdrop_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_airdrop_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_airdrop_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_airdrop_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_airdrop_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_airdrop_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_airdrop_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_airdrop_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_airdrop_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_airdrop_disable -dict-add finding -bool NO
 fi
     
@@ -1240,19 +1240,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_appleid_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_appleid_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_appleid_prompt_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_appleid_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_appleid_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_appleid_prompt_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_appleid_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_appleid_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_appleid_prompt_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_appleid_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_appleid_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_appleid_prompt_disable -dict-add finding -bool NO
 fi
     
@@ -1277,19 +1277,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) os_asl_log_files_owner_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_asl_log_files_owner_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_asl_log_files_owner_group_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_asl_log_files_owner_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_asl_log_files_owner_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_asl_log_files_owner_group_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_asl_log_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_asl_log_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_asl_log_files_owner_group_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_asl_log_files_owner_group_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_asl_log_files_owner_group_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_asl_log_files_owner_group_configure -dict-add finding -bool NO
 fi
     
@@ -1314,19 +1314,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) os_asl_log_files_permissions_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_asl_log_files_permissions_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_asl_log_files_permissions_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_asl_log_files_permissions_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_asl_log_files_permissions_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_asl_log_files_permissions_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_asl_log_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_asl_log_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_asl_log_files_permissions_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_asl_log_files_permissions_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_asl_log_files_permissions_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_asl_log_files_permissions_configure -dict-add finding -bool NO
 fi
     
@@ -1355,19 +1355,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_authenticated_root_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_authenticated_root_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_authenticated_root_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_authenticated_root_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_authenticated_root_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_authenticated_root_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_authenticated_root_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_authenticated_root_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_authenticated_root_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_authenticated_root_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_authenticated_root_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_authenticated_root_enable -dict-add finding -bool NO
 fi
     
@@ -1392,19 +1392,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_bonjour_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_bonjour_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_bonjour_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_bonjour_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_bonjour_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_bonjour_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_bonjour_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_bonjour_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_bonjour_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_bonjour_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_bonjour_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_bonjour_disable -dict-add finding -bool NO
 fi
     
@@ -1430,19 +1430,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_calendar_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_calendar_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_calendar_app_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_calendar_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_calendar_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_calendar_app_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_calendar_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_calendar_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_calendar_app_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_calendar_app_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_calendar_app_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_calendar_app_disable -dict-add finding -bool NO
 fi
     
@@ -1468,19 +1468,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_config_data_install_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_config_data_install_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_config_data_install_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) os_config_data_install_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_config_data_install_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_config_data_install_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_config_data_install_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_config_data_install_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_config_data_install_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_config_data_install_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_config_data_install_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_config_data_install_enforce -dict-add finding -bool NO
 fi
     
@@ -1506,19 +1506,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_facetime_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_facetime_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_facetime_app_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_facetime_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_facetime_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_facetime_app_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_facetime_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_facetime_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_facetime_app_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_facetime_app_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_facetime_app_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_facetime_app_disable -dict-add finding -bool NO
 fi
     
@@ -1545,19 +1545,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_filevault_autologin_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_filevault_autologin_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_filevault_autologin_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_filevault_autologin_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_filevault_autologin_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_filevault_autologin_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_filevault_autologin_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_filevault_autologin_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_filevault_autologin_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_filevault_autologin_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_filevault_autologin_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_filevault_autologin_disable -dict-add finding -bool NO
 fi
     
@@ -1583,19 +1583,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_firewall_default_deny_require passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_firewall_default_deny_require passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_firewall_default_deny_require -dict-add finding -bool NO
         else
-            echo "$(date -u) os_firewall_default_deny_require failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_firewall_default_deny_require failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_firewall_default_deny_require -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_firewall_default_deny_require has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_firewall_default_deny_require has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_firewall_default_deny_require -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_firewall_default_deny_require does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_firewall_default_deny_require does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_firewall_default_deny_require -dict-add finding -bool NO
 fi
     
@@ -1621,19 +1621,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "2" ]]; then
-            echo "$(date -u) os_firewall_log_enable passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "os_firewall_log_enable passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_firewall_log_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_firewall_log_enable failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "os_firewall_log_enable failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_firewall_log_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_firewall_log_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_firewall_log_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_firewall_log_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_firewall_log_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_firewall_log_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_firewall_log_enable -dict-add finding -bool NO
 fi
     
@@ -1661,19 +1661,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_firmware_password_require passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_firmware_password_require passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_firmware_password_require -dict-add finding -bool NO
         else
-            echo "$(date -u) os_firmware_password_require failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_firmware_password_require failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_firmware_password_require -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_firmware_password_require has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_firmware_password_require has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_firmware_password_require -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_firmware_password_require does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_firmware_password_require does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_firmware_password_require -dict-add finding -bool NO
 fi
     
@@ -1701,19 +1701,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_gatekeeper_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_gatekeeper_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_gatekeeper_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_gatekeeper_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_gatekeeper_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_gatekeeper_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_gatekeeper_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_gatekeeper_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_gatekeeper_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_gatekeeper_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_gatekeeper_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_gatekeeper_enable -dict-add finding -bool NO
 fi
     
@@ -1738,19 +1738,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_gatekeeper_rearm passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_gatekeeper_rearm passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_gatekeeper_rearm -dict-add finding -bool NO
         else
-            echo "$(date -u) os_gatekeeper_rearm failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_gatekeeper_rearm failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_gatekeeper_rearm -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_gatekeeper_rearm has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_gatekeeper_rearm has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_gatekeeper_rearm -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_gatekeeper_rearm does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_gatekeeper_rearm does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_gatekeeper_rearm -dict-add finding -bool NO
 fi
     
@@ -1777,19 +1777,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_handoff_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_handoff_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_handoff_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_handoff_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_handoff_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_handoff_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_handoff_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_handoff_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_handoff_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_handoff_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_handoff_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_handoff_disable -dict-add finding -bool NO
 fi
     
@@ -1814,19 +1814,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) os_home_folders_secure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_home_folders_secure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_home_folders_secure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_home_folders_secure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_home_folders_secure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_home_folders_secure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_home_folders_secure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_home_folders_secure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_home_folders_secure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_home_folders_secure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_home_folders_secure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_home_folders_secure -dict-add finding -bool NO
 fi
     
@@ -1852,19 +1852,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_httpd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_httpd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_httpd_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_httpd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_httpd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_httpd_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_httpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_httpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_httpd_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_httpd_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_httpd_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_httpd_disable -dict-add finding -bool NO
 fi
     
@@ -1889,19 +1889,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_icloud_storage_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_icloud_storage_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_icloud_storage_prompt_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_icloud_storage_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_icloud_storage_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_icloud_storage_prompt_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_icloud_storage_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_icloud_storage_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_icloud_storage_prompt_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_icloud_storage_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_icloud_storage_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_icloud_storage_prompt_disable -dict-add finding -bool NO
 fi
     
@@ -1927,19 +1927,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_internet_accounts_prefpane_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_internet_accounts_prefpane_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_internet_accounts_prefpane_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_internet_accounts_prefpane_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_internet_accounts_prefpane_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_internet_accounts_prefpane_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_internet_accounts_prefpane_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_internet_accounts_prefpane_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_internet_accounts_prefpane_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_internet_accounts_prefpane_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_internet_accounts_prefpane_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_internet_accounts_prefpane_disable -dict-add finding -bool NO
 fi
     
@@ -1965,19 +1965,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_ir_support_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_ir_support_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ir_support_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_ir_support_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_ir_support_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ir_support_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_ir_support_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_ir_support_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_ir_support_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_ir_support_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_ir_support_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_ir_support_disable -dict-add finding -bool NO
 fi
     
@@ -2003,19 +2003,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_mail_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_mail_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_mail_app_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_mail_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_mail_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_mail_app_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_mail_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_mail_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_mail_app_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_mail_app_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_mail_app_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_mail_app_disable -dict-add finding -bool NO
 fi
     
@@ -2041,19 +2041,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_mdm_require passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_mdm_require passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_mdm_require -dict-add finding -bool NO
         else
-            echo "$(date -u) os_mdm_require failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_mdm_require failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_mdm_require -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_mdm_require has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_mdm_require has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_mdm_require -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_mdm_require does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_mdm_require does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_mdm_require -dict-add finding -bool NO
 fi
     
@@ -2079,19 +2079,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_messages_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_messages_app_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_messages_app_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_messages_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_messages_app_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_messages_app_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_messages_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_messages_app_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_messages_app_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_messages_app_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_messages_app_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_messages_app_disable -dict-add finding -bool NO
 fi
     
@@ -2116,19 +2116,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) os_newsyslog_files_owner_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_newsyslog_files_owner_group_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_newsyslog_files_owner_group_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_newsyslog_files_owner_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_newsyslog_files_owner_group_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_newsyslog_files_owner_group_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_newsyslog_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_newsyslog_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_newsyslog_files_owner_group_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_newsyslog_files_owner_group_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_newsyslog_files_owner_group_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_newsyslog_files_owner_group_configure -dict-add finding -bool NO
 fi
     
@@ -2153,19 +2153,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) os_newsyslog_files_permissions_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_newsyslog_files_permissions_configure passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_newsyslog_files_permissions_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_newsyslog_files_permissions_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "os_newsyslog_files_permissions_configure failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_newsyslog_files_permissions_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_newsyslog_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_newsyslog_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_newsyslog_files_permissions_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_newsyslog_files_permissions_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_newsyslog_files_permissions_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_newsyslog_files_permissions_configure -dict-add finding -bool NO
 fi
     
@@ -2191,19 +2191,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_nfsd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_nfsd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_nfsd_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_nfsd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_nfsd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_nfsd_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_nfsd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_nfsd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_nfsd_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_nfsd_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_nfsd_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_nfsd_disable -dict-add finding -bool NO
 fi
     
@@ -2228,19 +2228,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_parental_controls_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_parental_controls_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_parental_controls_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_parental_controls_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_parental_controls_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_parental_controls_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_parental_controls_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_parental_controls_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_parental_controls_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_parental_controls_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_parental_controls_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_parental_controls_enable -dict-add finding -bool NO
 fi
     
@@ -2267,19 +2267,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_password_autofill_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_password_autofill_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_password_autofill_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_password_autofill_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_password_autofill_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_password_autofill_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_password_autofill_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_password_autofill_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_password_autofill_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_password_autofill_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_password_autofill_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_password_autofill_disable -dict-add finding -bool NO
 fi
     
@@ -2304,19 +2304,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_password_proximity_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_password_proximity_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_password_proximity_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_password_proximity_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_password_proximity_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_password_proximity_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_password_proximity_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_password_proximity_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_password_proximity_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_password_proximity_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_password_proximity_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_password_proximity_disable -dict-add finding -bool NO
 fi
     
@@ -2341,19 +2341,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_password_sharing_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_password_sharing_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_password_sharing_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_password_sharing_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_password_sharing_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_password_sharing_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_password_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_password_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_password_sharing_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_password_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_password_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_password_sharing_disable -dict-add finding -bool NO
 fi
     
@@ -2378,19 +2378,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_policy_banner_loginwindow_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_policy_banner_loginwindow_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_policy_banner_loginwindow_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) os_policy_banner_loginwindow_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_policy_banner_loginwindow_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_policy_banner_loginwindow_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_policy_banner_loginwindow_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_policy_banner_loginwindow_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_policy_banner_loginwindow_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_policy_banner_loginwindow_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_policy_banner_loginwindow_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_policy_banner_loginwindow_enforce -dict-add finding -bool NO
 fi
     
@@ -2415,19 +2415,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_recovery_lock_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_recovery_lock_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_recovery_lock_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_recovery_lock_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_recovery_lock_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_recovery_lock_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_recovery_lock_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_recovery_lock_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_recovery_lock_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_recovery_lock_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_recovery_lock_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_recovery_lock_enable -dict-add finding -bool NO
 fi
     
@@ -2452,19 +2452,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "2" ]]; then
-            echo "$(date -u) os_removable_media_disable passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "os_removable_media_disable passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_removable_media_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_removable_media_disable failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "os_removable_media_disable failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_removable_media_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_removable_media_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_removable_media_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_removable_media_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_removable_media_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_removable_media_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_removable_media_disable -dict-add finding -bool NO
 fi
     
@@ -2489,19 +2489,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_root_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_root_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_root_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_root_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_root_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_root_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_root_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_root_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_root_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_root_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_root_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_root_disable -dict-add finding -bool NO
 fi
     
@@ -2526,19 +2526,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_screensaver_loginwindow_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_screensaver_loginwindow_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_screensaver_loginwindow_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) os_screensaver_loginwindow_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_screensaver_loginwindow_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_screensaver_loginwindow_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_screensaver_loginwindow_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_screensaver_loginwindow_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_screensaver_loginwindow_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_screensaver_loginwindow_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_screensaver_loginwindow_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_screensaver_loginwindow_enforce -dict-add finding -bool NO
 fi
     
@@ -2564,19 +2564,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_secure_boot_verify passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_secure_boot_verify passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_secure_boot_verify -dict-add finding -bool NO
         else
-            echo "$(date -u) os_secure_boot_verify failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_secure_boot_verify failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_secure_boot_verify -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_secure_boot_verify has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_secure_boot_verify has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_secure_boot_verify -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_secure_boot_verify does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_secure_boot_verify does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_secure_boot_verify -dict-add finding -bool NO
 fi
     
@@ -2606,19 +2606,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_sip_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_sip_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_sip_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_sip_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_sip_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_sip_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_sip_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_sip_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_sip_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_sip_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_sip_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_sip_enable -dict-add finding -bool NO
 fi
     
@@ -2644,19 +2644,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_siri_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_siri_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_siri_prompt_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_siri_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_siri_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_siri_prompt_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_siri_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_siri_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_siri_prompt_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_siri_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_siri_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_siri_prompt_disable -dict-add finding -bool NO
 fi
     
@@ -2681,19 +2681,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_skip_unlock_with_watch_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_skip_unlock_with_watch_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_skip_unlock_with_watch_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_skip_unlock_with_watch_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_skip_unlock_with_watch_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_skip_unlock_with_watch_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_skip_unlock_with_watch_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_skip_unlock_with_watch_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_skip_unlock_with_watch_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_skip_unlock_with_watch_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_skip_unlock_with_watch_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_skip_unlock_with_watch_enable -dict-add finding -bool NO
 fi
     
@@ -2729,19 +2729,19 @@ CASignatureAlgorithms ecdsa-sha2-nistp256"
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "8" ]]; then
-            echo "$(date -u) os_ssh_fips_compliant passed (Result: $result_value, Expected: "{'integer': 8}")" | tee -a "$audit_log"
+            echo "os_ssh_fips_compliant passed (Result: $result_value, Expected: "{'integer': 8}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ssh_fips_compliant -dict-add finding -bool NO
         else
-            echo "$(date -u) os_ssh_fips_compliant failed (Result: $result_value, Expected: "{'integer': 8}")" | tee -a "$audit_log"
+            echo "os_ssh_fips_compliant failed (Result: $result_value, Expected: "{'integer': 8}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ssh_fips_compliant -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_ssh_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_ssh_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_ssh_fips_compliant -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_ssh_fips_compliant does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_ssh_fips_compliant does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_ssh_fips_compliant -dict-add finding -bool NO
 fi
     
@@ -2766,19 +2766,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_ssh_server_alive_count_max_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_ssh_server_alive_count_max_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ssh_server_alive_count_max_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_ssh_server_alive_count_max_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_ssh_server_alive_count_max_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ssh_server_alive_count_max_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_ssh_server_alive_count_max_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_ssh_server_alive_count_max_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_ssh_server_alive_count_max_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_ssh_server_alive_count_max_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_ssh_server_alive_count_max_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_ssh_server_alive_count_max_configure -dict-add finding -bool NO
 fi
     
@@ -2804,19 +2804,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_ssh_server_alive_interval_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_ssh_server_alive_interval_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ssh_server_alive_interval_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_ssh_server_alive_interval_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_ssh_server_alive_interval_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_ssh_server_alive_interval_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_ssh_server_alive_interval_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_ssh_server_alive_interval_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_ssh_server_alive_interval_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_ssh_server_alive_interval_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_ssh_server_alive_interval_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_ssh_server_alive_interval_configure -dict-add finding -bool NO
 fi
     
@@ -2851,19 +2851,19 @@ CASignatureAlgorithms ecdsa-sha2-nistp256"
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "7" ]]; then
-            echo "$(date -u) os_sshd_fips_compliant passed (Result: $result_value, Expected: "{'integer': 7}")" | tee -a "$audit_log"
+            echo "os_sshd_fips_compliant passed (Result: $result_value, Expected: "{'integer': 7}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_sshd_fips_compliant -dict-add finding -bool NO
         else
-            echo "$(date -u) os_sshd_fips_compliant failed (Result: $result_value, Expected: "{'integer': 7}")" | tee -a "$audit_log"
+            echo "os_sshd_fips_compliant failed (Result: $result_value, Expected: "{'integer': 7}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_sshd_fips_compliant -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_sshd_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_sshd_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_sshd_fips_compliant -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_sshd_fips_compliant does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_sshd_fips_compliant does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_sshd_fips_compliant -dict-add finding -bool NO
 fi
     
@@ -2889,19 +2889,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_sudoers_tty_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_sudoers_tty_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_sudoers_tty_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) os_sudoers_tty_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_sudoers_tty_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_sudoers_tty_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_sudoers_tty_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_sudoers_tty_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_sudoers_tty_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_sudoers_tty_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_sudoers_tty_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_sudoers_tty_configure -dict-add finding -bool NO
 fi
     
@@ -2928,19 +2928,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "No" ]]; then
-            echo "$(date -u) os_system_read_only passed (Result: $result_value, Expected: "{'string': 'No'}")" | tee -a "$audit_log"
+            echo "os_system_read_only passed (Result: $result_value, Expected: "{'string': 'No'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_system_read_only -dict-add finding -bool NO
         else
-            echo "$(date -u) os_system_read_only failed (Result: $result_value, Expected: "{'string': 'No'}")" | tee -a "$audit_log"
+            echo "os_system_read_only failed (Result: $result_value, Expected: "{'string': 'No'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_system_read_only -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_system_read_only has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_system_read_only has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_system_read_only -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_system_read_only does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_system_read_only does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_system_read_only -dict-add finding -bool NO
 fi
     
@@ -2967,19 +2967,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_tftpd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_tftpd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_tftpd_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_tftpd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_tftpd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_tftpd_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_tftpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_tftpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_tftpd_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_tftpd_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_tftpd_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_tftpd_disable -dict-add finding -bool NO
 fi
     
@@ -3005,19 +3005,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_time_server_enabled passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_time_server_enabled passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_time_server_enabled -dict-add finding -bool NO
         else
-            echo "$(date -u) os_time_server_enabled failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_time_server_enabled failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_time_server_enabled -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_time_server_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_time_server_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_time_server_enabled -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_time_server_enabled does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_time_server_enabled does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_time_server_enabled -dict-add finding -bool NO
 fi
     
@@ -3042,19 +3042,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_touchid_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_touchid_prompt_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_touchid_prompt_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_touchid_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_touchid_prompt_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_touchid_prompt_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_touchid_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_touchid_prompt_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_touchid_prompt_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_touchid_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_touchid_prompt_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_touchid_prompt_disable -dict-add finding -bool NO
 fi
     
@@ -3079,19 +3079,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_unlock_active_user_session_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_unlock_active_user_session_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_unlock_active_user_session_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_unlock_active_user_session_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_unlock_active_user_session_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_unlock_active_user_session_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_unlock_active_user_session_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_unlock_active_user_session_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_unlock_active_user_session_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_unlock_active_user_session_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_unlock_active_user_session_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_unlock_active_user_session_disable -dict-add finding -bool NO
 fi
     
@@ -3117,19 +3117,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) os_uucp_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_uucp_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_uucp_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) os_uucp_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "os_uucp_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" os_uucp_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) os_uucp_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "os_uucp_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" os_uucp_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) os_uucp_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "os_uucp_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" os_uucp_disable -dict-add finding -bool NO
 fi
     
@@ -3154,19 +3154,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "90" ]]; then
-            echo "$(date -u) pwpolicy_60_day_enforce passed (Result: $result_value, Expected: "{'integer': 90}")" | tee -a "$audit_log"
+            echo "pwpolicy_60_day_enforce passed (Result: $result_value, Expected: "{'integer': 90}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_60_day_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_60_day_enforce failed (Result: $result_value, Expected: "{'integer': 90}")" | tee -a "$audit_log"
+            echo "pwpolicy_60_day_enforce failed (Result: $result_value, Expected: "{'integer': 90}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_60_day_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_60_day_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_60_day_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_60_day_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_60_day_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_60_day_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_60_day_enforce -dict-add finding -bool NO
 fi
     
@@ -3191,19 +3191,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "35" ]]; then
-            echo "$(date -u) pwpolicy_account_inactivity_enforce passed (Result: $result_value, Expected: "{'integer': 35}")" | tee -a "$audit_log"
+            echo "pwpolicy_account_inactivity_enforce passed (Result: $result_value, Expected: "{'integer': 35}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_account_inactivity_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_account_inactivity_enforce failed (Result: $result_value, Expected: "{'integer': 35}")" | tee -a "$audit_log"
+            echo "pwpolicy_account_inactivity_enforce failed (Result: $result_value, Expected: "{'integer': 35}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_account_inactivity_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_account_inactivity_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_account_inactivity_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_account_inactivity_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_account_inactivity_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_account_inactivity_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_account_inactivity_enforce -dict-add finding -bool NO
 fi
     
@@ -3228,19 +3228,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_account_lockout_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_account_lockout_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_account_lockout_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_account_lockout_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_account_lockout_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_account_lockout_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_account_lockout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_account_lockout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_account_lockout_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_account_lockout_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_account_lockout_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_account_lockout_enforce -dict-add finding -bool NO
 fi
     
@@ -3265,19 +3265,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_account_lockout_timeout_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_account_lockout_timeout_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_account_lockout_timeout_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_account_lockout_timeout_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_account_lockout_timeout_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_account_lockout_timeout_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_account_lockout_timeout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_account_lockout_timeout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_account_lockout_timeout_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_account_lockout_timeout_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_account_lockout_timeout_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_account_lockout_timeout_enforce -dict-add finding -bool NO
 fi
     
@@ -3302,19 +3302,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_alpha_numeric_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_alpha_numeric_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_alpha_numeric_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_alpha_numeric_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_alpha_numeric_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_alpha_numeric_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_alpha_numeric_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_alpha_numeric_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_alpha_numeric_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_alpha_numeric_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_alpha_numeric_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_alpha_numeric_enforce -dict-add finding -bool NO
 fi
     
@@ -3339,19 +3339,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "5" ]]; then
-            echo "$(date -u) pwpolicy_history_enforce passed (Result: $result_value, Expected: "{'integer': 5}")" | tee -a "$audit_log"
+            echo "pwpolicy_history_enforce passed (Result: $result_value, Expected: "{'integer': 5}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_history_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_history_enforce failed (Result: $result_value, Expected: "{'integer': 5}")" | tee -a "$audit_log"
+            echo "pwpolicy_history_enforce failed (Result: $result_value, Expected: "{'integer': 5}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_history_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_history_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_history_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_history_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_history_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_history_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_history_enforce -dict-add finding -bool NO
 fi
     
@@ -3376,19 +3376,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_lower_case_character_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_lower_case_character_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_lower_case_character_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_lower_case_character_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_lower_case_character_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_lower_case_character_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_lower_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_lower_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_lower_case_character_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_lower_case_character_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_lower_case_character_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_lower_case_character_enforce -dict-add finding -bool NO
 fi
     
@@ -3413,19 +3413,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_minimum_length_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_minimum_length_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_minimum_length_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_minimum_length_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_minimum_length_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_minimum_length_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_minimum_length_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_minimum_length_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_minimum_length_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_minimum_length_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_minimum_length_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_minimum_length_enforce -dict-add finding -bool NO
 fi
     
@@ -3450,19 +3450,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "24" ]]; then
-            echo "$(date -u) pwpolicy_minimum_lifetime_enforce passed (Result: $result_value, Expected: "{'integer': 24}")" | tee -a "$audit_log"
+            echo "pwpolicy_minimum_lifetime_enforce passed (Result: $result_value, Expected: "{'integer': 24}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_minimum_lifetime_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_minimum_lifetime_enforce failed (Result: $result_value, Expected: "{'integer': 24}")" | tee -a "$audit_log"
+            echo "pwpolicy_minimum_lifetime_enforce failed (Result: $result_value, Expected: "{'integer': 24}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_minimum_lifetime_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_minimum_lifetime_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_minimum_lifetime_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_minimum_lifetime_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_minimum_lifetime_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_minimum_lifetime_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_minimum_lifetime_enforce -dict-add finding -bool NO
 fi
     
@@ -3487,19 +3487,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_simple_sequence_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_simple_sequence_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_simple_sequence_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_simple_sequence_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_simple_sequence_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_simple_sequence_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_simple_sequence_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_simple_sequence_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_simple_sequence_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_simple_sequence_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_simple_sequence_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_simple_sequence_disable -dict-add finding -bool NO
 fi
     
@@ -3524,19 +3524,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_special_character_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_special_character_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_special_character_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_special_character_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_special_character_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_special_character_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_special_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_special_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_special_character_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_special_character_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_special_character_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_special_character_enforce -dict-add finding -bool NO
 fi
     
@@ -3561,19 +3561,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) pwpolicy_upper_case_character_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_upper_case_character_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_upper_case_character_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) pwpolicy_upper_case_character_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "pwpolicy_upper_case_character_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" pwpolicy_upper_case_character_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) pwpolicy_upper_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "pwpolicy_upper_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" pwpolicy_upper_case_character_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) pwpolicy_upper_case_character_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "pwpolicy_upper_case_character_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" pwpolicy_upper_case_character_enforce -dict-add finding -bool NO
 fi
     
@@ -3600,19 +3600,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_addressbook_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_addressbook_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_addressbook_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_addressbook_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_addressbook_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_addressbook_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_addressbook_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_addressbook_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_addressbook_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_addressbook_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_addressbook_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_addressbook_disable -dict-add finding -bool NO
 fi
     
@@ -3638,19 +3638,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_appleid_prefpane_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_appleid_prefpane_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_appleid_prefpane_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_appleid_prefpane_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_appleid_prefpane_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_appleid_prefpane_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_appleid_prefpane_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_appleid_prefpane_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_appleid_prefpane_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_appleid_prefpane_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_appleid_prefpane_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_appleid_prefpane_disable -dict-add finding -bool NO
 fi
     
@@ -3677,19 +3677,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_bookmarks_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_bookmarks_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_bookmarks_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_bookmarks_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_bookmarks_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_bookmarks_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_bookmarks_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_bookmarks_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_bookmarks_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_bookmarks_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_bookmarks_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_bookmarks_disable -dict-add finding -bool NO
 fi
     
@@ -3716,19 +3716,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_calendar_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_calendar_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_calendar_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_calendar_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_calendar_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_calendar_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_calendar_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_calendar_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_calendar_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_calendar_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_calendar_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_calendar_disable -dict-add finding -bool NO
 fi
     
@@ -3755,19 +3755,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_drive_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_drive_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_drive_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_drive_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_drive_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_drive_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_drive_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_drive_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_drive_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_drive_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_drive_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_drive_disable -dict-add finding -bool NO
 fi
     
@@ -3794,19 +3794,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_keychain_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_keychain_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_keychain_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_keychain_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_keychain_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_keychain_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_keychain_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_keychain_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_keychain_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_keychain_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_keychain_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_keychain_disable -dict-add finding -bool NO
 fi
     
@@ -3833,19 +3833,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_mail_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_mail_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_mail_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_mail_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_mail_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_mail_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_mail_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_mail_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_mail_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_mail_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_mail_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_mail_disable -dict-add finding -bool NO
 fi
     
@@ -3872,19 +3872,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_notes_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_notes_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_notes_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_notes_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_notes_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_notes_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_notes_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_notes_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_notes_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_notes_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_notes_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_notes_disable -dict-add finding -bool NO
 fi
     
@@ -3911,19 +3911,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_photos_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_photos_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_photos_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_photos_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_photos_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_photos_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_photos_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_photos_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_photos_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_photos_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_photos_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_photos_disable -dict-add finding -bool NO
 fi
     
@@ -3950,19 +3950,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_private_relay_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_private_relay_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_private_relay_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_private_relay_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_private_relay_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_private_relay_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_private_relay_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_private_relay_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_private_relay_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_private_relay_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_private_relay_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_private_relay_disable -dict-add finding -bool NO
 fi
     
@@ -3989,19 +3989,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_reminders_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_reminders_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_reminders_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_reminders_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_reminders_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_reminders_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_reminders_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_reminders_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_reminders_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_reminders_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_reminders_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_reminders_disable -dict-add finding -bool NO
 fi
     
@@ -4028,19 +4028,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) icloud_sync_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_sync_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_sync_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) icloud_sync_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "icloud_sync_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" icloud_sync_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) icloud_sync_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "icloud_sync_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" icloud_sync_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) icloud_sync_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "icloud_sync_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" icloud_sync_disable -dict-add finding -bool NO
 fi
     
@@ -4065,19 +4065,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_airplay_receiver_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_airplay_receiver_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_airplay_receiver_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_airplay_receiver_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_airplay_receiver_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_airplay_receiver_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_airplay_receiver_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_airplay_receiver_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_airplay_receiver_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_airplay_receiver_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_airplay_receiver_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_airplay_receiver_disable -dict-add finding -bool NO
 fi
     
@@ -4102,19 +4102,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_apple_watch_unlock_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_apple_watch_unlock_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_apple_watch_unlock_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_apple_watch_unlock_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_apple_watch_unlock_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_apple_watch_unlock_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_apple_watch_unlock_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_apple_watch_unlock_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_apple_watch_unlock_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_apple_watch_unlock_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_apple_watch_unlock_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_apple_watch_unlock_disable -dict-add finding -bool NO
 fi
     
@@ -4140,19 +4140,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_automatic_login_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_automatic_login_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_automatic_login_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_automatic_login_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_automatic_login_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_automatic_login_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_automatic_login_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_automatic_login_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_automatic_login_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_automatic_login_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_automatic_login_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_automatic_login_disable -dict-add finding -bool NO
 fi
     
@@ -4178,19 +4178,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_automatic_logout_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_automatic_logout_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_automatic_logout_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_automatic_logout_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_automatic_logout_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_automatic_logout_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_automatic_logout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_automatic_logout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_automatic_logout_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_automatic_logout_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_automatic_logout_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_automatic_logout_enforce -dict-add finding -bool NO
 fi
     
@@ -4216,19 +4216,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_bluetooth_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_bluetooth_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_bluetooth_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_bluetooth_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_bluetooth_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_bluetooth_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_bluetooth_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_bluetooth_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_bluetooth_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_bluetooth_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_bluetooth_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_bluetooth_disable -dict-add finding -bool NO
 fi
     
@@ -4255,19 +4255,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) sysprefs_bluetooth_sharing_disable passed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_bluetooth_sharing_disable passed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_bluetooth_sharing_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_bluetooth_sharing_disable failed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_bluetooth_sharing_disable failed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_bluetooth_sharing_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_bluetooth_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_bluetooth_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_bluetooth_sharing_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_bluetooth_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_bluetooth_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_bluetooth_sharing_disable -dict-add finding -bool NO
 fi
     
@@ -4292,19 +4292,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_content_caching_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_content_caching_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_content_caching_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_content_caching_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_content_caching_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_content_caching_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_content_caching_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_content_caching_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_content_caching_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_content_caching_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_content_caching_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_content_caching_disable -dict-add finding -bool NO
 fi
     
@@ -4329,19 +4329,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_critical_update_install_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_critical_update_install_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_critical_update_install_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_critical_update_install_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_critical_update_install_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_critical_update_install_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_critical_update_install_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_critical_update_install_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_critical_update_install_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_critical_update_install_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_critical_update_install_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_critical_update_install_enforce -dict-add finding -bool NO
 fi
     
@@ -4368,19 +4368,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "2" ]]; then
-            echo "$(date -u) sysprefs_diagnostics_reports_disable passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "sysprefs_diagnostics_reports_disable passed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_diagnostics_reports_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_diagnostics_reports_disable failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
+            echo "sysprefs_diagnostics_reports_disable failed (Result: $result_value, Expected: "{'integer': 2}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_diagnostics_reports_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_diagnostics_reports_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_diagnostics_reports_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_diagnostics_reports_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_diagnostics_reports_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_diagnostics_reports_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_diagnostics_reports_disable -dict-add finding -bool NO
 fi
     
@@ -4405,19 +4405,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_filevault_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_filevault_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_filevault_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_filevault_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_filevault_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_filevault_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_filevault_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_filevault_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_filevault_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_filevault_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_filevault_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_filevault_enforce -dict-add finding -bool NO
 fi
     
@@ -4443,19 +4443,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "3" ]]; then
-            echo "$(date -u) sysprefs_find_my_disable passed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
+            echo "sysprefs_find_my_disable passed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_find_my_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_find_my_disable failed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
+            echo "sysprefs_find_my_disable failed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_find_my_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_find_my_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_find_my_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_find_my_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_find_my_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_find_my_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_find_my_disable -dict-add finding -bool NO
 fi
     
@@ -4482,19 +4482,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_firewall_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_firewall_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_firewall_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_firewall_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_firewall_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_firewall_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_firewall_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_firewall_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_firewall_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_firewall_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_firewall_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_firewall_enable -dict-add finding -bool NO
 fi
     
@@ -4520,19 +4520,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_firewall_stealth_mode_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_firewall_stealth_mode_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_firewall_stealth_mode_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_firewall_stealth_mode_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_firewall_stealth_mode_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_firewall_stealth_mode_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_firewall_stealth_mode_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_firewall_stealth_mode_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_firewall_stealth_mode_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_firewall_stealth_mode_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_firewall_stealth_mode_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_firewall_stealth_mode_enable -dict-add finding -bool NO
 fi
     
@@ -4559,19 +4559,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_gatekeeper_identified_developers_allowed passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_gatekeeper_identified_developers_allowed passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_gatekeeper_identified_developers_allowed -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_gatekeeper_identified_developers_allowed failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_gatekeeper_identified_developers_allowed failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_gatekeeper_identified_developers_allowed -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_gatekeeper_identified_developers_allowed has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_gatekeeper_identified_developers_allowed has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_gatekeeper_identified_developers_allowed -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_gatekeeper_identified_developers_allowed does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_gatekeeper_identified_developers_allowed does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_gatekeeper_identified_developers_allowed -dict-add finding -bool NO
 fi
     
@@ -4597,19 +4597,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_gatekeeper_override_disallow passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_gatekeeper_override_disallow passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_gatekeeper_override_disallow -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_gatekeeper_override_disallow failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_gatekeeper_override_disallow failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_gatekeeper_override_disallow -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_gatekeeper_override_disallow has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_gatekeeper_override_disallow has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_gatekeeper_override_disallow -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_gatekeeper_override_disallow does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_gatekeeper_override_disallow does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_gatekeeper_override_disallow -dict-add finding -bool NO
 fi
     
@@ -4634,19 +4634,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) sysprefs_guest_access_smb_disable passed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_guest_access_smb_disable passed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_guest_access_smb_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_guest_access_smb_disable failed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_guest_access_smb_disable failed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_guest_access_smb_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_guest_access_smb_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_guest_access_smb_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_guest_access_smb_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_guest_access_smb_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_guest_access_smb_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_guest_access_smb_disable -dict-add finding -bool NO
 fi
     
@@ -4671,19 +4671,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_guest_account_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_guest_account_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_guest_account_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_guest_account_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_guest_account_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_guest_account_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_guest_account_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_guest_account_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_guest_account_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_guest_account_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_guest_account_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_guest_account_disable -dict-add finding -bool NO
 fi
     
@@ -4708,19 +4708,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "4" ]]; then
-            echo "$(date -u) sysprefs_hot_corners_disable passed (Result: $result_value, Expected: "{'integer': 4}")" | tee -a "$audit_log"
+            echo "sysprefs_hot_corners_disable passed (Result: $result_value, Expected: "{'integer': 4}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_hot_corners_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_hot_corners_disable failed (Result: $result_value, Expected: "{'integer': 4}")" | tee -a "$audit_log"
+            echo "sysprefs_hot_corners_disable failed (Result: $result_value, Expected: "{'integer': 4}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_hot_corners_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_hot_corners_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_hot_corners_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_hot_corners_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_hot_corners_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_hot_corners_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_hot_corners_disable -dict-add finding -bool NO
 fi
     
@@ -4747,19 +4747,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_improve_siri_dictation_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_improve_siri_dictation_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_improve_siri_dictation_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_improve_siri_dictation_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_improve_siri_dictation_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_improve_siri_dictation_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_improve_siri_dictation_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_improve_siri_dictation_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_improve_siri_dictation_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_improve_siri_dictation_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_improve_siri_dictation_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_improve_siri_dictation_disable -dict-add finding -bool NO
 fi
     
@@ -4785,19 +4785,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_internet_sharing_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_internet_sharing_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_internet_sharing_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_internet_sharing_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_internet_sharing_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_internet_sharing_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_internet_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_internet_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_internet_sharing_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_internet_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_internet_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_internet_sharing_disable -dict-add finding -bool NO
 fi
     
@@ -4823,19 +4823,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) sysprefs_location_services_disable passed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_location_services_disable passed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_location_services_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_location_services_disable failed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_location_services_disable failed (Result: $result_value, Expected: "{'boolean': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_location_services_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_location_services_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_location_services_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_location_services_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_location_services_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_location_services_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_location_services_disable -dict-add finding -bool NO
 fi
     
@@ -4860,19 +4860,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_loginwindow_prompt_username_password_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_loginwindow_prompt_username_password_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_loginwindow_prompt_username_password_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_loginwindow_prompt_username_password_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_loginwindow_prompt_username_password_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_loginwindow_prompt_username_password_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_loginwindow_prompt_username_password_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_loginwindow_prompt_username_password_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_loginwindow_prompt_username_password_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_loginwindow_prompt_username_password_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_loginwindow_prompt_username_password_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_loginwindow_prompt_username_password_enforce -dict-add finding -bool NO
 fi
     
@@ -4898,19 +4898,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "3" ]]; then
-            echo "$(date -u) sysprefs_media_sharing_disabled passed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
+            echo "sysprefs_media_sharing_disabled passed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_media_sharing_disabled -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_media_sharing_disabled failed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
+            echo "sysprefs_media_sharing_disabled failed (Result: $result_value, Expected: "{'integer': 3}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_media_sharing_disabled -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_media_sharing_disabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_media_sharing_disabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_media_sharing_disabled -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_media_sharing_disabled does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_media_sharing_disabled does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_media_sharing_disabled -dict-add finding -bool NO
 fi
     
@@ -4935,19 +4935,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_password_hints_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_password_hints_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_password_hints_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_password_hints_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_password_hints_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_password_hints_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_password_hints_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_password_hints_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_password_hints_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_password_hints_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_password_hints_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_password_hints_disable -dict-add finding -bool NO
 fi
     
@@ -4974,19 +4974,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_personalized_advertising_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_personalized_advertising_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_personalized_advertising_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_personalized_advertising_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_personalized_advertising_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_personalized_advertising_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_personalized_advertising_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_personalized_advertising_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_personalized_advertising_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_personalized_advertising_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_personalized_advertising_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_personalized_advertising_disable -dict-add finding -bool NO
 fi
     
@@ -5011,19 +5011,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "0" ]]; then
-            echo "$(date -u) sysprefs_power_nap_disable passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_power_nap_disable passed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_power_nap_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_power_nap_disable failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
+            echo "sysprefs_power_nap_disable failed (Result: $result_value, Expected: "{'integer': 0}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_power_nap_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_power_nap_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_power_nap_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_power_nap_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_power_nap_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_power_nap_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_power_nap_disable -dict-add finding -bool NO
 fi
     
@@ -5049,19 +5049,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_rae_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_rae_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_rae_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_rae_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_rae_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_rae_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_rae_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_rae_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_rae_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_rae_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_rae_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_rae_disable -dict-add finding -bool NO
 fi
     
@@ -5087,19 +5087,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_screen_sharing_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_screen_sharing_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screen_sharing_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_screen_sharing_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_screen_sharing_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screen_sharing_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_screen_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_screen_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_screen_sharing_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_screen_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_screen_sharing_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_screen_sharing_disable -dict-add finding -bool NO
 fi
     
@@ -5124,19 +5124,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_screensaver_ask_for_password_delay_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_screensaver_ask_for_password_delay_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screensaver_ask_for_password_delay_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_screensaver_ask_for_password_delay_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_screensaver_ask_for_password_delay_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screensaver_ask_for_password_delay_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_screensaver_ask_for_password_delay_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_screensaver_ask_for_password_delay_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_screensaver_ask_for_password_delay_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_screensaver_ask_for_password_delay_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_screensaver_ask_for_password_delay_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_screensaver_ask_for_password_delay_enforce -dict-add finding -bool NO
 fi
     
@@ -5161,19 +5161,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_screensaver_password_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_screensaver_password_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screensaver_password_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_screensaver_password_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_screensaver_password_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screensaver_password_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_screensaver_password_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_screensaver_password_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_screensaver_password_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_screensaver_password_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_screensaver_password_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_screensaver_password_enforce -dict-add finding -bool NO
 fi
     
@@ -5199,19 +5199,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "Yes" ]]; then
-            echo "$(date -u) sysprefs_screensaver_timeout_enforce passed (Result: $result_value, Expected: "{'string': 'Yes'}")" | tee -a "$audit_log"
+            echo "sysprefs_screensaver_timeout_enforce passed (Result: $result_value, Expected: "{'string': 'Yes'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screensaver_timeout_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_screensaver_timeout_enforce failed (Result: $result_value, Expected: "{'string': 'Yes'}")" | tee -a "$audit_log"
+            echo "sysprefs_screensaver_timeout_enforce failed (Result: $result_value, Expected: "{'string': 'Yes'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_screensaver_timeout_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_screensaver_timeout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_screensaver_timeout_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_screensaver_timeout_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_screensaver_timeout_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_screensaver_timeout_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_screensaver_timeout_enforce -dict-add finding -bool NO
 fi
     
@@ -5238,19 +5238,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_siri_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_siri_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_siri_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_siri_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_siri_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_siri_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_siri_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_siri_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_siri_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_siri_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_siri_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_siri_disable -dict-add finding -bool NO
 fi
     
@@ -5276,19 +5276,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_smbd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_smbd_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_smbd_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_smbd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_smbd_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_smbd_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_smbd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_smbd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_smbd_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_smbd_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_smbd_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_smbd_disable -dict-add finding -bool NO
 fi
     
@@ -5316,19 +5316,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_ssh_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_ssh_enable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_ssh_enable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_ssh_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_ssh_enable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_ssh_enable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_ssh_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_ssh_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_ssh_enable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_ssh_enable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_ssh_enable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_ssh_enable -dict-add finding -bool NO
 fi
     
@@ -5353,19 +5353,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_system_wide_preferences_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_system_wide_preferences_configure passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_system_wide_preferences_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_system_wide_preferences_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_system_wide_preferences_configure failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_system_wide_preferences_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_system_wide_preferences_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_system_wide_preferences_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_system_wide_preferences_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_system_wide_preferences_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_system_wide_preferences_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_system_wide_preferences_configure -dict-add finding -bool NO
 fi
     
@@ -5391,19 +5391,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "time-a.nist.gov,time-b.nist.gov" ]]; then
-            echo "$(date -u) sysprefs_time_server_configure passed (Result: $result_value, Expected: "{'string': 'time-a.nist.gov,time-b.nist.gov'}")" | tee -a "$audit_log"
+            echo "sysprefs_time_server_configure passed (Result: $result_value, Expected: "{'string': 'time-a.nist.gov,time-b.nist.gov'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_time_server_configure -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_time_server_configure failed (Result: $result_value, Expected: "{'string': 'time-a.nist.gov,time-b.nist.gov'}")" | tee -a "$audit_log"
+            echo "sysprefs_time_server_configure failed (Result: $result_value, Expected: "{'string': 'time-a.nist.gov,time-b.nist.gov'}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_time_server_configure -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_time_server_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_time_server_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_time_server_configure -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_time_server_configure does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_time_server_configure does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_time_server_configure -dict-add finding -bool NO
 fi
     
@@ -5429,19 +5429,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_time_server_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_time_server_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_time_server_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_time_server_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_time_server_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_time_server_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_time_server_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_time_server_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_time_server_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_time_server_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_time_server_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_time_server_enforce -dict-add finding -bool NO
 fi
     
@@ -5466,19 +5466,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_token_removal_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_token_removal_enforce passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_token_removal_enforce -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_token_removal_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_token_removal_enforce failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_token_removal_enforce -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_token_removal_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_token_removal_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_token_removal_enforce -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_token_removal_enforce does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_token_removal_enforce does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_token_removal_enforce -dict-add finding -bool NO
 fi
     
@@ -5503,19 +5503,19 @@ if [[ "$arch" == "$rule_arch" ]] || [[ -z "$rule_arch" ]]; then
  
     if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         if [[ $result_value == "1" ]]; then
-            echo "$(date -u) sysprefs_touchid_unlock_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_touchid_unlock_disable passed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_touchid_unlock_disable -dict-add finding -bool NO
         else
-            echo "$(date -u) sysprefs_touchid_unlock_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
+            echo "sysprefs_touchid_unlock_disable failed (Result: $result_value, Expected: "{'integer': 1}")" | tee -a "$audit_log"
             defaults write "$audit_plist" sysprefs_touchid_unlock_disable -dict-add finding -bool YES
         fi
     elif [[ ! -z "$exempt_reason" ]];then
-        echo "$(date -u) sysprefs_touchid_unlock_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+        echo "sysprefs_touchid_unlock_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
         defaults write "$audit_plist" sysprefs_touchid_unlock_disable -dict-add finding -bool NO
         
     fi
 else
-    echo "$(date -u) sysprefs_touchid_unlock_disable does not apply to this architechture" | tee -a "$audit_log"
+    echo "sysprefs_touchid_unlock_disable does not apply to this architechture" | tee -a "$audit_log"
     defaults write "$audit_plist" sysprefs_touchid_unlock_disable -dict-add finding -bool NO
 fi
     
@@ -5529,7 +5529,7 @@ run_fix(){
 
 
 # append to existing logfile
-echo "$(date -u) Beginning remediation of non-compliant settings" >> "$audit_log"
+echo "Beginning remediation of non-compliant settings" >> "$audit_log"
 
 # run mcxrefresh 
 /usr/bin/mcxrefresh -u $CURR_USER_UID
@@ -5594,7 +5594,7 @@ LOGIN_END
         echo 'Settings for: auth_pam_login_smartcard_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) auth_pam_login_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "auth_pam_login_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: auth_pam_su_smartcard_enforce -----#####
@@ -5645,7 +5645,7 @@ SU_END
         echo 'Settings for: auth_pam_su_smartcard_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) auth_pam_su_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "auth_pam_su_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: auth_pam_sudo_smartcard_enforce -----#####
@@ -5692,7 +5692,7 @@ SUDO_END
         echo 'Settings for: auth_pam_sudo_smartcard_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) auth_pam_sudo_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "auth_pam_sudo_smartcard_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: auth_ssh_password_authentication_disable -----#####
@@ -5719,7 +5719,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: auth_ssh_password_authentication_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) auth_ssh_password_authentication_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "auth_ssh_password_authentication_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_acls_files_configure -----#####
@@ -5745,7 +5745,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_acls_files_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_acls_files_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_acls_files_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_acls_folders_configure -----#####
@@ -5770,7 +5770,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_acls_folders_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_acls_folders_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_acls_folders_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_auditd_enabled -----#####
@@ -5800,7 +5800,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_auditd_enabled already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_auditd_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_auditd_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_failure_halt -----#####
@@ -5825,7 +5825,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_failure_halt already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_failure_halt has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_failure_halt has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_files_group_configure -----#####
@@ -5850,7 +5850,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_files_group_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_files_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_files_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_files_mode_configure -----#####
@@ -5875,7 +5875,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_files_mode_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_files_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_files_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_files_owner_configure -----#####
@@ -5900,7 +5900,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_files_owner_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_files_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_files_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_aa_configure -----#####
@@ -5929,7 +5929,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_aa_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_aa_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_aa_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_ad_configure -----#####
@@ -5959,7 +5959,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_ad_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_ad_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_ad_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_ex_configure -----#####
@@ -5987,7 +5987,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_ex_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_ex_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_ex_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_fd_configure -----#####
@@ -6017,7 +6017,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_fd_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_fd_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_fd_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_fm_failed_configure -----#####
@@ -6047,7 +6047,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_fm_failed_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_fm_failed_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_fm_failed_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_fr_configure -----#####
@@ -6077,7 +6077,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_fr_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_fr_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_fr_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_fw_configure -----#####
@@ -6107,7 +6107,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_fw_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_fw_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_fw_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_flags_lo_configure -----#####
@@ -6136,7 +6136,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_flags_lo_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_flags_lo_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_flags_lo_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_folder_group_configure -----#####
@@ -6161,7 +6161,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_folder_group_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_folder_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_folder_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_folder_owner_configure -----#####
@@ -6186,7 +6186,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_folder_owner_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_folder_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_folder_owner_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_folders_mode_configure -----#####
@@ -6211,7 +6211,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_folders_mode_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_folders_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_folders_mode_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_retention_configure -----#####
@@ -6237,7 +6237,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_retention_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_retention_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_retention_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: audit_settings_failure_notify -----#####
@@ -6262,7 +6262,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: audit_settings_failure_notify already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) audit_settings_failure_notify has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "audit_settings_failure_notify has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_asl_log_files_owner_group_configure -----#####
@@ -6287,7 +6287,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_asl_log_files_owner_group_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_asl_log_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_asl_log_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_asl_log_files_permissions_configure -----#####
@@ -6312,7 +6312,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_asl_log_files_permissions_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_asl_log_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_asl_log_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_authenticated_root_enable -----#####
@@ -6341,7 +6341,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_authenticated_root_enable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_authenticated_root_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_authenticated_root_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_gatekeeper_enable -----#####
@@ -6369,7 +6369,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_gatekeeper_enable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_gatekeeper_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_gatekeeper_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_home_folders_secure -----#####
@@ -6402,7 +6402,7 @@ unset IFS
         echo 'Settings for: os_home_folders_secure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_home_folders_secure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_home_folders_secure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_httpd_disable -----#####
@@ -6428,7 +6428,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_httpd_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_httpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_httpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_newsyslog_files_owner_group_configure -----#####
@@ -6453,7 +6453,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_newsyslog_files_owner_group_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_newsyslog_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_newsyslog_files_owner_group_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_newsyslog_files_permissions_configure -----#####
@@ -6478,7 +6478,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_newsyslog_files_permissions_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_newsyslog_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_newsyslog_files_permissions_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_nfsd_disable -----#####
@@ -6504,7 +6504,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_nfsd_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_nfsd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_nfsd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_policy_banner_loginwindow_enforce -----#####
@@ -6537,7 +6537,7 @@ EOF
         echo 'Settings for: os_policy_banner_loginwindow_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_policy_banner_loginwindow_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_policy_banner_loginwindow_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_root_disable -----#####
@@ -6562,7 +6562,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_root_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_root_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_root_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_sip_enable -----#####
@@ -6592,7 +6592,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_sip_enable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_sip_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_sip_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_ssh_fips_compliant -----#####
@@ -6636,7 +6636,7 @@ CASignatureAlgorithms ecdsa-sha2-nistp256"
         echo 'Settings for: os_ssh_fips_compliant already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_ssh_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_ssh_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_ssh_server_alive_count_max_configure -----#####
@@ -6661,7 +6661,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_ssh_server_alive_count_max_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_ssh_server_alive_count_max_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_ssh_server_alive_count_max_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_ssh_server_alive_interval_configure -----#####
@@ -6687,7 +6687,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_ssh_server_alive_interval_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_ssh_server_alive_interval_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_ssh_server_alive_interval_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_sshd_fips_compliant -----#####
@@ -6729,7 +6729,7 @@ CASignatureAlgorithms ecdsa-sha2-nistp256"
         echo 'Settings for: os_sshd_fips_compliant already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_sshd_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_sshd_fips_compliant has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_sudoers_tty_configure -----#####
@@ -6755,7 +6755,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_sudoers_tty_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_sudoers_tty_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_sudoers_tty_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_tftpd_disable -----#####
@@ -6782,7 +6782,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_tftpd_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_tftpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_tftpd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_time_server_enabled -----#####
@@ -6808,7 +6808,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_time_server_enabled already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_time_server_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_time_server_enabled has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_unlock_active_user_session_disable -----#####
@@ -6833,7 +6833,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_unlock_active_user_session_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_unlock_active_user_session_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_unlock_active_user_session_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: os_uucp_disable -----#####
@@ -6859,7 +6859,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: os_uucp_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) os_uucp_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "os_uucp_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: pwpolicy_account_inactivity_enforce -----#####
@@ -6884,7 +6884,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: pwpolicy_account_inactivity_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) pwpolicy_account_inactivity_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "pwpolicy_account_inactivity_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: pwpolicy_lower_case_character_enforce -----#####
@@ -6909,7 +6909,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: pwpolicy_lower_case_character_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) pwpolicy_lower_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "pwpolicy_lower_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: pwpolicy_minimum_lifetime_enforce -----#####
@@ -6934,7 +6934,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: pwpolicy_minimum_lifetime_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) pwpolicy_minimum_lifetime_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "pwpolicy_minimum_lifetime_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: pwpolicy_upper_case_character_enforce -----#####
@@ -6959,7 +6959,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: pwpolicy_upper_case_character_enforce already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) pwpolicy_upper_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "pwpolicy_upper_case_character_enforce has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_bluetooth_sharing_disable -----#####
@@ -6986,7 +6986,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_bluetooth_sharing_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_bluetooth_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_bluetooth_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_gatekeeper_identified_developers_allowed -----#####
@@ -7013,7 +7013,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_gatekeeper_identified_developers_allowed already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_gatekeeper_identified_developers_allowed has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_gatekeeper_identified_developers_allowed has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_guest_access_smb_disable -----#####
@@ -7038,7 +7038,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_guest_access_smb_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_guest_access_smb_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_guest_access_smb_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_location_services_disable -----#####
@@ -7064,7 +7064,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_location_services_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_location_services_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_location_services_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_power_nap_disable -----#####
@@ -7089,7 +7089,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_power_nap_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_power_nap_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_power_nap_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_rae_disable -----#####
@@ -7117,7 +7117,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_rae_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_rae_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_rae_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_screen_sharing_disable -----#####
@@ -7143,7 +7143,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_screen_sharing_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_screen_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_screen_sharing_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_smbd_disable -----#####
@@ -7169,7 +7169,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_smbd_disable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_smbd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_smbd_disable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_ssh_enable -----#####
@@ -7197,7 +7197,7 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_ssh_enable already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_ssh_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_ssh_enable has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
 #####----- Rule: sysprefs_system_wide_preferences_configure -----#####
@@ -7226,10 +7226,10 @@ if [[ ! $exempt == "true" ]] || [[ -z $exempt ]];then
         echo 'Settings for: sysprefs_system_wide_preferences_configure already configured, continuing...' | tee -a "$audit_log"
     fi
 elif [[ ! -z "$exempt_reason" ]];then
-    echo "$(date -u) sysprefs_system_wide_preferences_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
+    echo "sysprefs_system_wide_preferences_configure has an exemption (Reason: "$exempt_reason")" | tee -a "$audit_log"
 fi
     
-echo "$(date -u) Remediation complete" >> "$audit_log"
+echo "Remediation complete" >> "$audit_log"
 
 }
 
